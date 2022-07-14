@@ -82,7 +82,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
     app.get('/api/users/:_id/logs', (req, res) => {
       const { from, to, limit} = req.query;
       console.log(from, to, limit);
-      
+
       User.findById(req.params._id, (err, user) => {
         if(user){
           if (from || to || limit) {
@@ -90,7 +90,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
             console.log(logs);
             const filteredLogs = logs
             .filter(log => {
-              const formattedLogDate = (new Date(log.date)).toDateString().split('T')[0]
+              const formattedLogDate = (new Date(log.date)).toDateString().split('T')[0].dateString();
               console.log(formattedLogDate)
               return true
             })
