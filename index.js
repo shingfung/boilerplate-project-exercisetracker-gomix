@@ -81,11 +81,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
 
     app.get('/api/users/:_id/logs', (req, res) => {
       const { from, to, limit} = req.query;
-      /*console.log(req.query.from);
-      console.log(req.query.to);
-      console.log(req.query.limit);
-      console.log(from, to, limit);*/
-
+      
       User.findById(req.params._id, (err, user) => {
         if(user){
           if (from || to || limit) {
@@ -93,12 +89,12 @@ app.post('/api/users/:_id/exercises', (req,res) => {
             //console.log(logs);
             const filteredLogs = logs
             .filter(log => {
-              const formattedLogDate = (new Date(log.date)).dateString().split('T')[0]
+              const formattedLogDate = (new Date(log.date)).toISOString().split('T')[0]
               //console.log(formattedLogDate)
               return true
             })
 
-            console.log(filteredLogs);
+            //console.log(filteredLogs);
             const slicedLogs = limit ? filteredLogs.slice(0, limit) : filteredLogs;
             user.log = slicedLogs;
             //console.log(slicedLogs);
