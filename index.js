@@ -12,7 +12,7 @@ const userSchema = new Schema({
   username: { type: String, required: true },
   log: [{
     description: String,
-    duration: String,
+    duration: Number,
     date: String
   }],
   count: Number
@@ -90,7 +90,7 @@ app.post('/api/users/:_id/exercises', (req,res) => {
             //console.log(logs);
             const filteredLogs = logs
             .filter(log => {
-              const formattedLogDate = (new Date(log.date)).toDateString().split('T')[0]
+              const formattedLogDate = log.date.toDateString().split('T')[0]
               //console.log(formattedLogDate)
               return true
             })
