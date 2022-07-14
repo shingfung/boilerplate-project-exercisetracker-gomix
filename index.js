@@ -63,9 +63,9 @@ app.post('/api/users/:_id/exercises', (req,res) => {
 
 
     const exercise = {
-    description, 
-    duration, 
-    date,
+      date,
+      duration,
+      description   
     }
 
     User.findByIdAndUpdate(id, { 
@@ -81,24 +81,24 @@ app.post('/api/users/:_id/exercises', (req,res) => {
 
     app.get('/api/users/:_id/logs', (req, res) => {
       const { from, to, limit} = req.query;
+      console.log(from, to, limit);
       
       User.findById(req.params._id, (err, user) => {
-        console.log(user);
         if(user){
           if (from || to || limit) {
             const logs = user.log;
-            //console.log(logs);
+            console.log(logs);
             const filteredLogs = logs
             .filter(log => {
-              const formattedLogDate = log.date.toDateString().split('T')[0]
-              //console.log(formattedLogDate)
+              const formattedLogDate = (new Date(log.date)).toDateString().split('T')[0]
+              console.log(formattedLogDate)
               return true
             })
 
-            //console.log(filteredLogs);
+            console.log(filteredLogs);
             const slicedLogs = limit ? filteredLogs.slice(0, limit) : filteredLogs;
             user.log = slicedLogs;
-            //console.log(slicedLogs);
+            console.log(slicedLogs);
           }
           res.json(user);
         }
