@@ -12,7 +12,7 @@ const userSchema = new Schema({
   username: { type: String, required: true },
   log: [{
     description: String,
-    duration: Number,
+    duration: String,
     date: String
   }],
   count: Number
@@ -83,13 +83,14 @@ app.post('/api/users/:_id/exercises', (req,res) => {
       const { from, to, limit} = req.query;
       
       User.findById(req.params._id, (err, user) => {
+        console.log(user);
         if(user){
           if (from || to || limit) {
             const logs = user.log;
             //console.log(logs);
             const filteredLogs = logs
             .filter(log => {
-              const formattedLogDate = (new Date(log.date)).toISOString().split('T')[0]
+              const formattedLogDate = (new Date(log.date)).toDateString().split('T')[0]
               //console.log(formattedLogDate)
               return true
             })
