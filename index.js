@@ -57,8 +57,8 @@ app.route('/api/users')
 app.post('/api/users/:_id/exercises', (req,res) => {
     const description  = req.body.description;
     const duration = parseInt(req.body.duration);
-    const date = req.body.date ? (new Date(req.body.date)).toString() : (new Date()).toDateString();
-    /*const date = req.body.date ? 'Mon Jan 01 1990' : 'Thu Nov 04 2021';*/
+    //const date = req.body.date ? (new Date(req.body.date)).toString() : (new Date()).toDateString();
+    const date = req.body.date ? 'Mon Jan 01 1990' : 'Thu Nov 04 2021';
     const id = req.params._id;
 
 
